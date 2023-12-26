@@ -41,7 +41,6 @@
             //-   persistent-hint
             //-   :hint='$t(`editor:props.shortDescriptionHint`)'
             //-   )
-            span {{ slug }}
           v-divider
           v-card-text.grey.pt-5(:class='$vuetify.theme.dark ? `darken-3-d3` : `lighten-5`')
             .overline.pb-5 {{$t('editor:props.path')}}
