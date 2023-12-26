@@ -273,9 +273,10 @@ module.exports = {
             builder.andWhereNotNull('pageId')
             break
         }
-        if (!args.parent || args.parent < 1) {
+        
+        if (!args.parent) {
           builder.whereNull('parent')
-        } else {
+        } else if(args.parent != -1) {
           builder.where('parent', args.parent)
           if (args.includeAncestors && curPage && curPage.ancestors.length > 0) {
             builder.orWhereIn('id', _.isString(curPage.ancestors) ? JSON.parse(curPage.ancestors) : curPage.ancestors)

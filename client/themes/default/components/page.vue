@@ -1,10 +1,10 @@
 <template lang="pug">
   v-app(v-scroll='upBtnScroll', :dark='$vuetify.theme.dark', :class='$vuetify.rtl ? `is-rtl` : `is-ltr`')
     nav-header(v-if='!printView')
-    v-navigation-drawer(
+    v-navigation-drawer.pb-0.page-sidebar(
       v-if='navMode !== `NONE` && !printView'
-      :class='$vuetify.theme.dark ? `grey darken-4-d4` : `primary`'
-      dark
+      :class='$vuetify.theme.dark ? `grey darken-4` : ``'
+      light
       app
       clipped
       mobile-breakpoint='600'
@@ -13,7 +13,7 @@
       :right='$vuetify.rtl'
       )
       vue-scroll(:ops='scrollStyle')
-        nav-sidebar(:color='$vuetify.theme.dark ? `grey darken-4-d4` : `primary`', :items='sidebarDecoded', :nav-mode='navMode')
+        nav-sidebar(:color='$vuetify.theme.dark ? `grey darken-4` : ``', :items='sidebarDecoded', light, :nav-mode='navMode')
 
     v-fab-transition(v-if='navMode !== `NONE`')
       v-btn(
@@ -709,6 +709,37 @@ export default {
 </script>
 
 <style lang="scss">
+
+.page-sidebar {
+  .v-list__tile--active {
+    background-color: rgba(mc('theme', 'primary'), .1);
+
+    .v-icon {
+      color: mc('theme', 'primary');
+    }
+  }
+
+  .v-list-group > .v-list-item {
+    padding-left: 0;
+  }
+
+  .v-list-group__items > .v-list {
+    padding-left: 12px;
+    padding-top: 0px;
+  }
+  
+  // .v-list--dense.v-list--nav .v-list-group--no-action>.v-list-group__items>.v-list-item {
+  //   padding-left: 20px;
+  // }
+
+  .v-list-group__items > .v-list--nav {
+    padding-right: 0 !important;
+  }
+  
+  .v-list-item__avatar:first-child {
+    margin-right: 8px;
+  }
+}
 
 .breadcrumbs-nav {
   .v-btn {
