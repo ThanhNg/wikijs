@@ -1,5 +1,5 @@
 <template lang='pug'>
-  v-app-bar.nav-header(color='black', dark, app, :clipped-left='!$vuetify.rtl', :clipped-right='$vuetify.rtl', fixed, flat, :extended='searchIsShown && $vuetify.breakpoint.smAndDown')
+  v-app-bar.nav-header(color='primary', light, app, :clipped-left='!$vuetify.rtl', :clipped-right='$vuetify.rtl', fixed, flat, :extended='searchIsShown && $vuetify.breakpoint.smAndDown')
     v-toolbar(color='deep-purple', flat, slot='extension', v-if='searchIsShown && $vuetify.breakpoint.smAndDown')
       v-text-field(
         ref='searchFieldMobile'
@@ -19,34 +19,13 @@
       )
     v-layout(row)
       v-flex(xs5, md4)
-        v-toolbar.nav-header-inner(color='black', dark, flat, :class='$vuetify.rtl ? `pr-3` : `pl-3`')
+        v-toolbar.nav-header-inner(color='primary', light, flat, :class='$vuetify.rtl ? `pr-3` : `pl-3`')
           v-avatar(tile, size='34', @click='goHome')
             v-img.org-logo(:src='logoUrl')
-          //- v-menu(open-on-hover, offset-y, bottom, left, min-width='250', transition='slide-y-transition')
-          //-   template(v-slot:activator='{ on }')
-          //-     v-app-bar-nav-icon.btn-animate-app(v-on='on', :class='$vuetify.rtl ? `mx-0` : ``')
-          //-       v-icon mdi-menu
-          //-   v-list(nav, :light='!$vuetify.theme.dark', :dark='$vuetify.theme.dark', :class='$vuetify.theme.dark ? `grey darken-4` : ``')
-          //-     v-list-item.pl-4(href='/')
-          //-       v-list-item-avatar(size='24'): v-icon(color='blue') mdi-home
-          //-       v-list-item-title.body-2 {{$t('common:header.home')}}
-          //-     v-list-item.pl-4(@click='')
-          //-       v-list-item-avatar(size='24'): v-icon(color='grey lighten-2') mdi-file-tree
-          //-       v-list-item-content
-          //-         v-list-item-title.body-2.grey--text.text--ligten-2 {{$t('common:header.siteMap')}}
-          //-         v-list-item-subtitle.overline.grey--text.text--lighten-2 Coming soon
-          //-     v-list-item.pl-4(href='/t')
-          //-       v-list-item-avatar(size='24'): v-icon(color='teal') mdi-tag-multiple
-          //-       v-list-item-title.body-2 {{$t('common:header.browseTags')}}
-          //-     v-list-item.pl-4(@click='assets')
-          //-       v-list-item-avatar(size='24'): v-icon(color='grey lighten-2') mdi-folder-multiple-image
-          //-       v-list-item-content
-          //-         v-list-item-title.body-2.grey--text.text--ligten-2 {{$t('common:header.imagesFiles')}}
-          //-         v-list-item-subtitle.overline.grey--text.text--lighten-2 Coming soon
           v-toolbar-title(:class='{ "mx-3": $vuetify.breakpoint.mdAndUp, "mx-1": $vuetify.breakpoint.smAndDown }')
-            span.subheading {{title}}
+            span.subheading.white--text {{title}}
       v-flex(md4, v-if='$vuetify.breakpoint.mdAndUp')
-        v-toolbar.nav-header-inner(color='black', dark, flat)
+        v-toolbar.nav-header-inner(color='primary', light, flat)
           slot(name='mid')
             transition(name='navHeaderSearch', v-if='searchIsShown')
               v-text-field(
@@ -73,13 +52,13 @@
             v-tooltip(bottom)
               template(v-slot:activator='{ on }')
                 v-btn.ml-2.mr-0(icon, v-on='on', href='/t', :aria-label='$t(`common:header.browseTags`)')
-                  v-icon(color='grey') mdi-tag-multiple
+                  v-icon(color='white') mdi-tag-multiple
               span {{$t('common:header.browseTags')}}
       v-flex(xs7, md4)
-        v-toolbar.nav-header-inner.pr-4(color='black', dark, flat)
+        v-toolbar.nav-header-inner.pr-4(color='primary', light, flat)
           v-spacer
           .navHeaderLoading.mr-3
-            v-progress-circular(indeterminate, color='blue', :size='22', :width='2' v-show='isLoading')
+            v-progress-circular(indeterminate, color='white', :size='22', :width='2' v-show='isLoading')
 
           slot(name='actions')
 
@@ -90,7 +69,7 @@
             @click='searchToggle'
             icon
             )
-            v-icon(color='grey') mdi-magnify
+            v-icon mdi-magnify
 
           //- LANGUAGES
 
@@ -108,7 +87,7 @@
                       height='64'
                       :aria-label='$t(`common:header.language`)'
                       )
-                      v-icon(color='grey') mdi-web
+                      v-icon(color='white') mdi-web
                   span {{$t('common:header.language')}}
               v-list(nav)
                 template(v-for='(lc, idx) of locales')
@@ -133,7 +112,7 @@
                       height='64'
                       :aria-label='$t(`common:header.pageActions`)'
                       )
-                      v-icon(color='grey') mdi-file-document-edit-outline
+                      v-icon(color='white') mdi-file-document-edit-outline
                   span {{$t('common:header.pageActions')}}
               v-list(nav, :light='!$vuetify.theme.dark', :dark='$vuetify.theme.dark', :class='$vuetify.theme.dark ? `grey darken-4` : ``')
                 .overline.pa-4.grey--text {{$t('common:header.currentPage')}}
@@ -171,7 +150,7 @@
             v-tooltip(bottom)
               template(v-slot:activator='{ on }')
                 v-btn(icon, tile, height='64', v-on='on', @click='pageNew', :aria-label='$t(`common:header.newPage`)')
-                  v-icon(color='grey') mdi-text-box-plus-outline
+                  v-icon(color='white') mdi-text-box-plus-outline
               span {{$t('common:header.newPage')}}
             v-divider(vertical)
 
@@ -181,11 +160,11 @@
             v-tooltip(bottom, v-if='mode !== `admin`')
               template(v-slot:activator='{ on }')
                 v-btn(icon, tile, height='64', v-on='on', href='/a', :aria-label='$t(`common:header.admin`)')
-                  v-icon(color='grey') mdi-cog
+                  v-icon(color='white') mdi-cog
               span {{$t('common:header.admin')}}
             v-btn(v-else, text, tile, height='64', href='/', :aria-label='$t(`common:actions.exit`)')
-              v-icon(left, color='grey') mdi-exit-to-app
-              span {{$t('common:actions.exit')}}
+              v-icon(left, color='white') mdi-exit-to-app
+              span.white--text {{$t('common:actions.exit')}}
             v-divider(vertical)
 
           //- ACCOUNT
@@ -203,7 +182,7 @@
                     height='64'
                     :aria-label='$t(`common:header.account`)'
                     )
-                    v-icon(v-if='picture.kind === `initials`', color='grey') mdi-account-circle
+                    v-icon(v-if='picture.kind === `initials`', color='white') mdi-account-circle
                     v-avatar(v-else-if='picture.kind === `image`', :size='34')
                       v-img(:src='picture.url')
                 span {{$t('common:header.account')}}
@@ -233,7 +212,7 @@
           v-tooltip(v-else, left)
             template(v-slot:activator='{ on }')
               v-btn(icon, v-on='on', color='grey darken-3', href='/login', :aria-label='$t(`common:header.login`)')
-                v-icon(color='grey') mdi-account-circle
+                v-icon(color='white') mdi-account-circle
             span {{$t('common:header.login')}}
 
     page-selector(mode='create', v-model='newPageModal', :open-handler='pageNewCreate', :locale='locale')
@@ -493,6 +472,10 @@ export default {
     }
   }
 
+  .theme--light.v-btn.v-btn--icon {
+    color: white;
+  } 
+
   .org-logo {
     cursor: pointer;
   }
@@ -524,24 +507,6 @@ export default {
       &::before {
         border-radius: 4px;
       }
-    }
-  }
-
-  &-dev {
-    background-color: mc('red', '600');
-    position: absolute;
-    top: 11px;
-    left: 255px;
-    padding: 5px 15px;
-    border-radius: 5px;
-    display: flex;
-
-    .v-icon {
-      margin-right: 15px;
-    }
-
-    .overline:nth-child(2) {
-      text-transform: none;
     }
   }
 }

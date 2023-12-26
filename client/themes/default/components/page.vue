@@ -715,7 +715,7 @@ export default {
     background-color: rgba(mc('theme', 'primary'), .1);
   }
 
-  .v-list .v-list-item--active, .v-list .v-list-item--active .v-icon  {
+  .v-list-group__header.v-list-item--active .v-icon  {
     color: rgba(0,0,0,.54);
   }
 
