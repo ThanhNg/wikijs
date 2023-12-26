@@ -20,7 +20,7 @@
           v-show='searchLoading'
           )
       .d-flex
-        v-flex.grey(xs5, :class='$vuetify.theme.dark ? `darken-4` : `lighten-3`')
+        v-flex.grey(xs12, :class='$vuetify.theme.dark ? `darken-4` : `lighten-3`')
           v-toolbar(color='grey darken-3', dark, dense, flat)
             .body-2 {{$t('common:pageSelector.virtualFolders')}}
             v-spacer
@@ -43,24 +43,24 @@
                 )
                 template(slot='prepend', slot-scope='{ item, open, leaf }')
                   v-icon mdi-{{ open ? 'folder-open' : 'folder' }}
-        v-flex(xs7)
-          v-toolbar(color='blue darken-2', dark, dense, flat)
-            .body-2 {{$t('common:pageSelector.pages')}}
-            //- v-spacer
-            //- v-btn(icon, tile, disabled): v-icon mdi-content-save-move-outline
-            //- v-btn(icon, tile, disabled): v-icon mdi-trash-can-outline
-          div(v-if='currentPages.length > 0', style='height:400px;')
-            vue-scroll(:ops='scrollStyle')
-              v-list.py-0(dense)
-                v-list-item-group(
-                  v-model='currentPage'
-                  color='primary'
-                  )
-                  template(v-for='(page, idx) of currentPages')
-                    v-list-item(:key='`page-` + page.id', :value='page')
-                      v-list-item-icon: v-icon mdi-text-box
-                      v-list-item-title {{page.title}}
-                    v-divider(v-if='idx < pages.length - 1')
+        //- v-flex(xs7)
+        //-   v-toolbar(color='blue darken-2', dark, dense, flat)
+        //-     .body-2 {{$t('common:pageSelector.pages')}}
+        //-     //- v-spacer
+        //-     //- v-btn(icon, tile, disabled): v-icon mdi-content-save-move-outline
+        //-     //- v-btn(icon, tile, disabled): v-icon mdi-trash-can-outline
+        //-   div(v-if='currentPages.length > 0', style='height:400px;')
+        //-     vue-scroll(:ops='scrollStyle')
+        //-       v-list.py-0(dense)
+        //-         v-list-item-group(
+        //-           v-model='currentPage'
+        //-           color='primary'
+        //-           )
+        //-           template(v-for='(page, idx) of currentPages')
+        //-             v-list-item(:key='`page-` + page.id', :value='page')
+        //-               v-list-item-icon: v-icon mdi-text-box
+        //-               v-list-item-title {{page.title}}
+        //-             v-divider(v-if='idx < pages.length - 1')
           v-alert.animated.fadeIn(
             v-else
             text

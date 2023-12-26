@@ -33,14 +33,15 @@
               counter='255'
               v-model='title'
               )
-            v-text-field(
-              outlined
-              :label='$t(`editor:props.shortDescription`)'
-              counter='255'
-              v-model='description'
-              persistent-hint
-              :hint='$t(`editor:props.shortDescriptionHint`)'
-              )
+            //- v-text-field(
+            //-   outlined
+            //-   :label='$t(`editor:props.shortDescription`)'
+            //-   counter='255'
+            //-   v-model='description'
+            //-   persistent-hint
+            //-   :hint='$t(`editor:props.shortDescriptionHint`)'
+            //-   )
+            span {{ slug }}
           v-divider
           v-card-text.grey.pt-5(:class='$vuetify.theme.dark ? `darken-3-d3` : `lighten-5`')
             .overline.pb-5 {{$t('editor:props.path')}}
@@ -246,6 +247,7 @@
 
 <script>
 import _ from 'lodash'
+import uslug from 'uslug'
 import { sync, get } from 'vuex-pathify'
 import gql from 'graphql-tag'
 
@@ -290,6 +292,9 @@ export default {
     },
     mode: get('editor/mode'),
     title: sync('page/title'),
+    slug: function() {
+      return uslug(this.title)
+    },
     description: sync('page/description'),
     locale: sync('page/locale'),
     tags: sync('page/tags'),
@@ -323,6 +328,9 @@ export default {
           this.newTag = null
         })
       }
+    },
+    slug (newValue, oldValue) {
+      this.path = this.path.substring(0, this.path.lastIndexOf('/')) + '/' + newValue;
     },
     currentTab (newValue, oldValue) {
       if (this.cm) {
