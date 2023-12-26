@@ -713,10 +713,10 @@ export default {
 .page-sidebar {
   .v-list__tile--active {
     background-color: rgba(mc('theme', 'primary'), .1);
+  }
 
-    .v-icon {
-      color: mc('theme', 'primary');
-    }
+  .v-list .v-list-item--active, .v-list .v-list-item--active .v-icon  {
+    color: rgba(0,0,0,.54);
   }
 
   .v-list-group > .v-list-item {

@@ -44,7 +44,7 @@
         v-divider.my-2(v-else-if='item.k === `divider`')
         v-subheader.pl-4(v-else-if='item.k === `header`') {{ item.l }}
     //-> Browse
-    tree-list(v-else-if='currentMode === `browse`', :items='items', :nav='true')
+    tree-list(v-else-if='currentMode === `browse`', :items='tree', :nav='true')
 </template>
 
 <script>
@@ -87,7 +87,7 @@ export default {
       },
       parents: [],
       loadedCache: [],
-      items: [
+      tree: [
         {
           id: 0,
           title: 'Home',
@@ -213,7 +213,7 @@ export default {
         n.active = n.id == curPage.id || _.some(this.parents, i => i.id == n.id)
       })
 
-      this.items = _.sortBy(_.filter(nodes, i => !i.parent), (i) => i.path == 'home' ? 0 : 1)
+      this.tree = _.sortBy(_.filter(nodes, i => !i.parent), (i) => i.path == 'home' ? 0 : 1)
 
       this.loadedCache = [curPage.parent]
       this.currentItems = _.filter(items, ['parent', curPage.parent])

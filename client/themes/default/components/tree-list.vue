@@ -8,7 +8,8 @@
         v-list-group(v-else-if='item.isFolder', v-model='item.active', no-action, to="/dev")
           v-list-item(slot='activator')
             v-list-item-avatar(size='24')
-              v-icon mdi-folder
+              v-icon(v-if='item.active') mdi-folder-open
+              v-icon(v-else) mdi-folder
             v-list-item-title {{item.title}}
           tree-list(:items='item.children', :nav='false')
         v-list-item(v-else, v-model='item.active', :href='`/` + item.locale + `/` + item.path', color='primary')
