@@ -3,12 +3,12 @@
     nav-header(dense)
       template(slot='mid')
         v-text-field.editor-title-input(
-          dark
+          light
           solo
           flat
           v-model='currentPageTitle'
           hide-details
-          background-color='black'
+          background-color='gray'
           dense
           full-width
         )

@@ -60,7 +60,11 @@
             )
             .page-header-headings
               .headline.grey--text(:class='$vuetify.theme.dark ? `text--lighten-2` : `text--darken-3`') {{title}}
-              .caption.grey--text.text--darken-1 {{description}}
+              //- .caption.grey--text.text--darken-1 {{description}}
+              .d-flex(style='gap: 4px', v-if='tocPosition === `off`')
+                span.page-author-card-name.body-2.grey--text(:class='$vuetify.theme.dark ? `` : `text--darken-2`') {{ authorName }}
+                span.grey--text •
+                span.page-author-card-date.caption.grey--text.text--darken-1 {{ updatedAt | moment('calendar') }}
             .page-edit-shortcuts(
               v-if='editShortcutsObj.editMenuBar'
               :class='tocPosition === `right` ? `is-right` : ``'
@@ -328,6 +332,20 @@
               .caption {{$t('common:page.unpublishedWarning')}}
             .contents(ref='container')
               slot(name='contents')
+
+            .v-flex.text-right.pb-5(v-if='tocPosition === `off` && tags.length > 0')
+              span.overline.teal--text.pb-2(:class='$vuetify.theme.dark ? `text--lighten-3` : ``') {{$t('common:page.tags')}}: 
+              v-chip.mr-1.mb-1(
+                label
+                :color='$vuetify.theme.dark ? `teal darken-1` : `teal lighten-5`'
+                v-for='(tag, idx) in tags'
+                :href='`/t/` + tag.tag'
+                :key='`tag-` + tag.tag'
+                )
+                v-icon(:color='$vuetify.theme.dark ? `teal lighten-3` : `teal`', left, small) mdi-tag
+                span(:class='$vuetify.theme.dark ? `teal--text text--lighten-5` : `teal--text text--darken-2`') {{tag.title}}
+            
+
             .comments-container#discussion(v-if='commentsEnabled && commentsPerms.read && !printView')
               .comments-header
                 v-icon.mr-2(dark) mdi-comment-text-outline
