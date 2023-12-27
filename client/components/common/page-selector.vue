@@ -61,14 +61,14 @@
         //-               v-list-item-icon: v-icon mdi-text-box
         //-               v-list-item-title {{page.title}}
         //-             v-divider(v-if='idx < pages.length - 1')
-          v-alert.animated.fadeIn(
-            v-else
-            text
-            color='orange'
-            prominent
-            icon='mdi-alert'
-            )
-            .body-2 {{$t('common:pageSelector.folderEmptyWarning')}}
+        //-   v-alert.animated.fadeIn(
+        //-     v-else
+        //-     text
+        //-     color='orange'
+        //-     prominent
+        //-     icon='mdi-alert'
+        //-     )
+        //-     .body-2 {{$t('common:pageSelector.folderEmptyWarning')}}
       v-card-actions.grey.pa-2(:class='$vuetify.theme.dark ? `darken-2` : `lighten-1`', v-if='!mustExist')
         v-select(
           solo
@@ -299,7 +299,7 @@ export default {
         }
       })
       const items = _.get(resp, 'data.pages.tree', [])
-      const itemFolders = _.filter(items, ['isFolder', true]).map(f => ({...f, children: []}))
+      const itemFolders = items.map(f => ({...f, children: []}))
       const itemPages = _.filter(items, i => i.pageId > 0)
       if (itemFolders.length > 0) {
         item.children = itemFolders
