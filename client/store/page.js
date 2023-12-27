@@ -12,6 +12,7 @@ const state = {
   publishEndDate: '',
   publishStartDate: '',
   tags: [],
+  displayOrder: 0,
   title: '',
   updatedAt: '',
   editor: '',

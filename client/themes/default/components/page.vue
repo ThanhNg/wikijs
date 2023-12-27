@@ -334,7 +334,7 @@
               slot(name='contents')
 
             .v-flex.text-right.pb-5(v-if='tocPosition === `off` && tags.length > 0')
-              span.overline.teal--text.pb-2(:class='$vuetify.theme.dark ? `text--lighten-3` : ``') {{$t('common:page.tags')}}: 
+              span.overline.teal--text.pb-2(:class='$vuetify.theme.dark ? `text--lighten-3` : ``') {{$t('common:page.tags')}}:
               v-chip.mr-1.mb-1(
                 label
                 :color='$vuetify.theme.dark ? `teal darken-1` : `teal lighten-5`'
@@ -344,7 +344,6 @@
                 )
                 v-icon(:color='$vuetify.theme.dark ? `teal lighten-3` : `teal`', left, small) mdi-tag
                 span(:class='$vuetify.theme.dark ? `teal--text text--lighten-5` : `teal--text text--darken-2`') {{tag.title}}
-            
 
             .comments-container#discussion(v-if='commentsEnabled && commentsPerms.read && !printView')
               .comments-header
@@ -443,6 +442,10 @@ export default {
     title: {
       type: String,
       default: 'Untitled Page'
+    },
+    displayOrder: {
+      type: Number,
+      default: null
     },
     description: {
       type: String,
@@ -608,6 +611,7 @@ export default {
     this.$store.set('page/path', this.path)
     this.$store.set('page/tags', this.tags)
     this.$store.set('page/title', this.title)
+    this.$store.set('page/displayOrder', this.displayOrder)
     this.$store.set('page/editor', this.editor)
     this.$store.set('page/updatedAt', this.updatedAt)
     if (this.effectivePermissions) {
@@ -745,7 +749,7 @@ export default {
     padding-left: 12px;
     padding-top: 0px;
   }
-  
+
   // .v-list--dense.v-list--nav .v-list-group--no-action>.v-list-group__items>.v-list-item {
   //   padding-left: 20px;
   // }
@@ -753,7 +757,7 @@ export default {
   .v-list-group__items > .v-list--nav {
     padding-right: 0 !important;
   }
-  
+
   .v-list-item__avatar:first-child {
     margin-right: 8px;
   }

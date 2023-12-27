@@ -26,6 +26,7 @@ module.exports = class PageHistory extends Model {
         publishEndDate: {type: 'string'},
         content: {type: 'string'},
         contentType: {type: 'string'},
+        displayOrder: {type: ['integer', 'null']},
 
         createdAt: {type: 'string'}
       }
@@ -104,6 +105,7 @@ module.exports = class PageHistory extends Model {
       publishEndDate: opts.publishEndDate || '',
       publishStartDate: opts.publishStartDate || '',
       title: opts.title,
+      displayOrder: opts.displayOrder,
       action: opts.action || 'updated',
       versionDate: opts.versionDate
     })
@@ -117,6 +119,7 @@ module.exports = class PageHistory extends Model {
       .column([
         'pageHistory.path',
         'pageHistory.title',
+        'pageHistory.displayOrder',
         'pageHistory.description',
         'pageHistory.isPrivate',
         'pageHistory.isPublished',

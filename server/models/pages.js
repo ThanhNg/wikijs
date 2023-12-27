@@ -47,6 +47,7 @@ module.exports = class Page extends Model {
         publishEndDate: {type: 'string'},
         content: {type: 'string'},
         contentType: {type: 'string'},
+        displayOrder: {type: ['integer', 'null']},
 
         createdAt: {type: 'string'},
         updatedAt: {type: 'string'}
@@ -161,6 +162,7 @@ module.exports = class Page extends Model {
         css: 'string'
       },
       title: 'string',
+      'displayOrder?': 'int',
       toc: 'string',
       updatedAt: 'string'
     })
@@ -311,6 +313,7 @@ module.exports = class Page extends Model {
       publishEndDate: opts.publishEndDate || '',
       publishStartDate: opts.publishStartDate || '',
       title: opts.title,
+      displayOrder: opts.displayOrder,
       toc: '[]',
       extra: JSON.stringify({
         js: scriptJs,
@@ -431,6 +434,7 @@ module.exports = class Page extends Model {
       publishEndDate: opts.publishEndDate || '',
       publishStartDate: opts.publishStartDate || '',
       title: opts.title,
+      displayOrder: opts.displayOrder,
       extra: JSON.stringify({
         ...ogPage.extra,
         js: scriptJs,
@@ -479,7 +483,7 @@ module.exports = class Page extends Model {
       // -> Update title of page tree entry
       await WIKI.models.knex.table('pageTree').where({
         pageId: page.id
-      }).update('title', page.title)
+      }).update({'title': page.title, 'displayOrder': page.displayOrder})
     }
 
     // -> Get latest updatedAt
@@ -983,6 +987,7 @@ module.exports = class Page extends Model {
           'pages.path',
           'pages.hash',
           'pages.title',
+          'pages.displayOrder',
           'pages.description',
           'pages.isPrivate',
           'pages.isPublished',
@@ -1072,6 +1077,7 @@ module.exports = class Page extends Model {
       render: page.render,
       tags: page.tags.map(t => _.pick(t, ['tag', 'title'])),
       title: page.title,
+      displayOrder: page.displayOrder,
       toc: _.isString(page.toc) ? page.toc : JSON.stringify(page.toc),
       updatedAt: page.updatedAt
     }))

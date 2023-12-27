@@ -25,7 +25,8 @@
         v-tab(:disabled='!hasStylePermission') {{$t('editor:props.styles')}}
         v-tab-item(transition='fade-transition', reverse-transition='fade-transition')
           v-card-text.pt-5
-            .overline.pb-5 {{$t('editor:props.pageInfo')}}
+
+            .overline.pb-3 {{$t('editor:props.pageInfo')}}
             v-text-field(
               ref='iptTitle'
               outlined
@@ -33,17 +34,8 @@
               counter='255'
               v-model='title'
               )
-            //- v-text-field(
-            //-   outlined
-            //-   :label='$t(`editor:props.shortDescription`)'
-            //-   counter='255'
-            //-   v-model='description'
-            //-   persistent-hint
-            //-   :hint='$t(`editor:props.shortDescriptionHint`)'
-            //-   )
-          v-divider
-          v-card-text.grey.pt-5(:class='$vuetify.theme.dark ? `darken-3-d3` : `lighten-5`')
-            .overline.pb-5 {{$t('editor:props.path')}}
+
+            .overline.pb-3 {{$t('editor:props.path')}}
             v-container.pa-0(fluid, grid-list-lg)
               v-layout(row, wrap)
                 v-flex(xs12, md2)
@@ -64,11 +56,9 @@
                     :hint='$t(`editor:props.pathHint`)'
                     persistent-hint
                     @click:append='showPathSelector'
-                    :rules='[rules.required, rules.path]'
-                    )
-          v-divider
-          v-card-text.grey.pt-5(:class='$vuetify.theme.dark ? `darken-3-d5` : `lighten-4`')
-            .overline.pb-5 {{$t('editor:props.categorization')}}
+                    :rules='[rules.required, rules.path]')
+
+            .overline.pb-3 {{$t('editor:props.categorization')}}
             v-chip-group.radius-5.mb-5(column, v-if='tags && tags.length > 0')
               v-chip(
                 v-for='tag of tags'
@@ -89,6 +79,14 @@
               persistent-hint
               hide-no-data
               :search-input.sync='newTagSearch'
+              )
+
+            .overline.pb-3 {{'Display Order'}}
+            v-text-field(
+              outlined
+              label='Order'
+              type='number'
+              v-model.number='displayOrder'
               )
         v-tab-item(transition='fade-transition', reverse-transition='fade-transition')
           v-card-text
@@ -297,6 +295,7 @@ export default {
     description: sync('page/description'),
     locale: sync('page/locale'),
     tags: sync('page/tags'),
+    displayOrder: sync('page/displayOrder'),
     path: sync('page/path'),
     isPublished: sync('page/isPublished'),
     publishStartDate: sync('page/publishStartDate'),

@@ -7,6 +7,7 @@ query ($parent: Int!, $mode: PageTreeMode!, $locale: String!) {
       isFolder
       pageId
       parent
+      displayOrder
     }
   }
 }

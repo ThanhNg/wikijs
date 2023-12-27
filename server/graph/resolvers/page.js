@@ -85,7 +85,8 @@ module.exports = {
         'privateNS',
         'contentType',
         'createdAt',
-        'updatedAt'
+        'updatedAt',
+        'displayOrder'
       ])
         .withGraphJoined('tags')
         .modifyGraph('tags', builder => {
@@ -173,8 +174,8 @@ module.exports = {
     async singleByPath(obj, args, context, info) {
       let page = await WIKI.models.pages.getPageFromDb({
         path: args.path,
-        locale: args.locale,
-      });
+        locale: args.locale
+      })
       if (page) {
         if (WIKI.auth.checkAccess(context.req.user, ['manage:pages', 'delete:pages'], {
           path: page.path,
@@ -273,10 +274,10 @@ module.exports = {
             builder.andWhereNotNull('pageId')
             break
         }
-        
+
         if (!args.parent) {
           builder.whereNull('parent')
-        } else if(args.parent != -1) {
+        } else if (args.parent !== -1) {
           builder.where('parent', args.parent)
           if (args.includeAncestors && curPage && curPage.ancestors.length > 0) {
             builder.orWhereIn('id', _.isString(curPage.ancestors) ? JSON.parse(curPage.ancestors) : curPage.ancestors)

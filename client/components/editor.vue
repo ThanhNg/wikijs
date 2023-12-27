@@ -109,6 +109,10 @@ export default {
       type: Array,
       default: () => ([])
     },
+    displayOrder: {
+      type: Number,
+      default: null
+    },
     isPublished: {
       type: Boolean,
       default: true
@@ -170,6 +174,7 @@ export default {
         publishEndDate: '',
         publishStartDate: '',
         tags: '',
+        displayOrder: null,
         title: '',
         css: '',
         js: ''
@@ -192,6 +197,7 @@ export default {
         this.savedState.title !== this.$store.get('page/title'),
         this.savedState.description !== this.$store.get('page/description'),
         this.savedState.tags !== this.$store.get('page/tags'),
+        this.savedState.displayOrder !== this.$store.get('page/displayOrder'),
         this.savedState.isPublished !== this.$store.get('page/isPublished'),
         this.savedState.publishStartDate !== this.$store.get('page/publishStartDate'),
         this.savedState.publishEndDate !== this.$store.get('page/publishEndDate'),
@@ -221,6 +227,7 @@ export default {
     this.$store.set('page/locale', this.locale)
     this.$store.set('page/path', this.path)
     this.$store.set('page/tags', this.tags)
+    this.$store.set('page/displayOrder', this.displayOrder)
     this.$store.set('page/title', this.title)
     this.$store.set('page/scriptCss', this.scriptCss)
     this.$store.set('page/scriptJs', this.scriptJs)
@@ -306,6 +313,7 @@ export default {
                 $scriptJs: String
                 $tags: [String]!
                 $title: String!
+                $displayOrder: Int
               ) {
                 pages {
                   create(
@@ -322,6 +330,7 @@ export default {
                     scriptJs: $scriptJs
                     tags: $tags
                     title: $title
+                    displayOrder: $displayOrder
                   ) {
                     responseResult {
                       succeeded
@@ -350,7 +359,8 @@ export default {
               scriptCss: this.$store.get('page/scriptCss'),
               scriptJs: this.$store.get('page/scriptJs'),
               tags: this.$store.get('page/tags'),
-              title: this.$store.get('page/title')
+              title: this.$store.get('page/title'),
+              displayOrder: parseInt(this.$store.get('page/displayOrder'))
             }
           })
           resp = _.get(resp, 'data.pages.create', {})
@@ -410,6 +420,7 @@ export default {
                 $scriptJs: String
                 $tags: [String]
                 $title: String
+                $displayOrder: Int
               ) {
                 pages {
                   update(
@@ -427,6 +438,7 @@ export default {
                     scriptJs: $scriptJs
                     tags: $tags
                     title: $title
+                    displayOrder: $displayOrder
                   ) {
                     responseResult {
                       succeeded
@@ -455,7 +467,8 @@ export default {
               scriptCss: this.$store.get('page/scriptCss'),
               scriptJs: this.$store.get('page/scriptJs'),
               tags: this.$store.get('page/tags'),
-              title: this.$store.get('page/title')
+              title: this.$store.get('page/title'),
+              displayOrder: parseInt(this.$store.get('page/displayOrder'))
             }
           })
           resp = _.get(resp, 'data.pages.update', {})
@@ -535,6 +548,7 @@ export default {
         publishStartDate: this.$store.get('page/publishStartDate') || '',
         tags: this.$store.get('page/tags'),
         title: this.$store.get('page/title'),
+        displayOrder: this.$store.get('page/displayOrder'),
         css: this.$store.get('page/scriptCss'),
         js: this.$store.get('page/scriptJs')
       }

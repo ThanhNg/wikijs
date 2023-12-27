@@ -93,7 +93,7 @@ export default {
           title: 'Home',
           children: []
         }
-      ],
+      ]
     }
   },
   computed: {
@@ -174,6 +174,7 @@ export default {
                 parent
                 locale
                 depth
+                displayOrder
               }
             }
           }
@@ -209,11 +210,11 @@ export default {
 
       const nodes = items.map(f => ({...f, children: [], active: false}))
       _.each(nodes, (n) => {
-        n.children = _.filter(nodes, i => i.parent == n.id)
-        n.active = n.id == curPage.id || _.some(this.parents, i => i.id == n.id)
+        n.children = _.sortBy(_.filter(nodes, i => i.parent === n.id), (i) => i.displayOrder)
+        n.active = n.id === curPage.id || _.some(this.parents, i => i.id === n.id)
       })
 
-      this.tree = _.sortBy(_.filter(nodes, i => !i.parent), (i) => i.path == 'home' ? 0 : 1)
+      this.tree = _.sortBy(_.filter(nodes, i => !i.parent), (i) => i.path === 'home' ? -999 : i.displayOrder)
 
       this.loadedCache = [curPage.parent]
       this.currentItems = _.filter(items, ['parent', curPage.parent])

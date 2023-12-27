@@ -10,7 +10,7 @@ module.exports = async (pageId) => {
     await WIKI.configSvc.loadFromDb()
     await WIKI.configSvc.applyFlags()
 
-    const pages = await WIKI.models.pages.query().select('id', 'path', 'localeCode', 'title', 'isPrivate', 'privateNS').orderBy(['localeCode', 'path'])
+    const pages = await WIKI.models.pages.query().select('id', 'path', 'localeCode', 'title', 'isPrivate', 'privateNS', 'displayOrder').orderBy(['localeCode', 'path'])
     let tree = []
     let pik = 0
 
@@ -41,6 +41,7 @@ module.exports = async (pageId) => {
             privateNS: !isFolder ? page.privateNS : null,
             parent: parentId,
             pageId: isFolder ? null : page.id,
+            displayOrder: page.displayOrder,
             ancestors: JSON.stringify(ancestors)
           })
           parentId = pik
