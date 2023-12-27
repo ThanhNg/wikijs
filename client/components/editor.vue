@@ -16,6 +16,14 @@
         v-btn.mr-3.animated.fadeIn(color='amber', outlined, small, v-if='isConflict', @click='openConflict')
           .overline.amber--text.mr-3 Conflict
           status-indicator(intermediary, pulse)
+        v-btn.animated.fadeInDown.wait-p1s(
+          text
+          color='blue'
+          @click='openPropsModal'
+          :class='{ "is-icon": $vuetify.breakpoint.mdAndDown, "mx-0": !welcomeMode, "ml-0": welcomeMode }'
+          )
+          v-icon(color='blue', :left='$vuetify.breakpoint.lgAndUp') mdi-tag-text-outline
+          span.white--text(v-if='$vuetify.breakpoint.lgAndUp') {{ $t('editor:props.pageProperties') }}
         v-btn.animated.fadeInDown(
           text
           color='green'
@@ -26,14 +34,6 @@
           v-icon(color='green', :left='$vuetify.breakpoint.lgAndUp') mdi-check
           span.grey--text(v-if='$vuetify.breakpoint.lgAndUp && mode !== `create` && !isDirty') {{ $t('editor:save.saved') }}
           span.white--text(v-else-if='$vuetify.breakpoint.lgAndUp') {{ $t('common:actions.save') }}
-        v-btn.animated.fadeInDown.wait-p1s(
-          text
-          color='blue'
-          @click='openPropsModal'
-          :class='{ "is-icon": $vuetify.breakpoint.mdAndDown, "mx-0": !welcomeMode, "ml-0": welcomeMode }'
-          )
-          v-icon(color='blue', :left='$vuetify.breakpoint.lgAndUp') mdi-tag-text-outline
-          span.white--text(v-if='$vuetify.breakpoint.lgAndUp') {{ $t('editor:props.pageProperties') }}
         v-btn.animated.fadeInDown.wait-p2s(
           v-if='!welcomeMode'
           text

@@ -277,10 +277,10 @@ export default {
       currentTab: 0,
       cm: null,
       rules: {
-          required: value => !!value || 'This field is required.',
-          path: value => {
-            return filenamePattern.test(value) || 'Invalid path. Please ensure it does not contain special characters, or begin/end in a slash or hashtag string.'
-          }
+        required: value => !!value || 'This field is required.',
+        path: value => {
+          return filenamePattern.test(value) || 'Invalid path. Please ensure it does not contain special characters, or begin/end in a slash or hashtag string.'
+        }
       }
     }
   },
@@ -329,7 +329,12 @@ export default {
       }
     },
     slug (newValue, oldValue) {
-      this.path = this.path.substring(0, this.path.lastIndexOf('/')) + '/' + newValue;
+      const splashIndex = this.path.lastIndexOf('/')
+      if (splashIndex >= 0) {
+        this.path = this.path.substring(0, splashIndex + 1) + newValue
+      } else {
+        this.path = newValue
+      }
     },
     currentTab (newValue, oldValue) {
       if (this.cm) {
