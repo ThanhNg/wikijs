@@ -48,11 +48,13 @@ module.exports = class AssetFolder extends Model {
         })
       }).select('*').from('ancestors')
     } else {
-      hier = await WIKI.models.knex.withRecursive('ancestors', qb => {
-        qb.select('id', 'name', 'slug', 'parentId').from('assetFolders').where('id', folderId).union(sqb => {
-          sqb.select('a.id', 'a.name', 'a.slug', 'a.parentId').from('assetFolders AS a').join('ancestors', 'ancestors.parentId', 'a.id')
-        })
-      }).select('*').from('ancestors')
+      // Disable recursive for mysql 5.7 compat
+      // hier = await WIKI.models.knex.withRecursive('ancestors', qb => {
+      //   qb.select('id', 'name', 'slug', 'parentId').from('assetFolders').where('id', folderId).union(sqb => {
+      //     sqb.select('a.id', 'a.name', 'a.slug', 'a.parentId').from('assetFolders AS a').join('ancestors', 'ancestors.parentId', 'a.id')
+      //   })
+      // }).select('*').from('ancestors')
+       hier = await WIKI.models.knex.select('*').from('assetFolders')
     }
     // The ancestors are from children to grandparents, must reverse for correct path order.
     return _.reverse(hier)
