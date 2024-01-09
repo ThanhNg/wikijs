@@ -31,7 +31,8 @@ server/views/setup.pug
 
 # Data directories
 /repo
-/data
+/data/uploads
+/data/cache
 /uploads
 /content
 /temp
